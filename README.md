@@ -1,5 +1,14 @@
 # Home Weather Station weather website template for Cumulus/Cumulus MX
 
+# 2026-04-05 Update
+
+After a PHP update on our server, the application died.... and it was hard to repair so a new approach....
+https://pysselilivet.blogspot.com/2026/04/dyi-weather-template-with-data-from.html
+
+https://vader.domsten.nu
+
+Mats A
+
 # 2025-01-09 Update
 
 Since Ken has archived this weathertemplate and I really like it I will try to keep it alive as long as possible.
