@@ -21,8 +21,9 @@ date_default_timezone_set($TZ);
 
 <head>
 
-  <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="02c810f5-653c-4ede-a46a-846c4809cad2"
-    data-blockingmode="auto" type="text/javascript"></script>
+  <?php if (file_exists('cookie.php')) {
+    include('cookie.php');
+  } ?>
 
   <title><?php echo $stationlocation; ?> Smart Home Weather Station</title>
   <meta content="Smart Home weather station providing current weather conditions for <?php echo $stationlocation; ?>"
