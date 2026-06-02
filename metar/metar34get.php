@@ -1,8 +1,8 @@
 <?php
 error_reporting(0); 
 $result = date_sun_info(time(), $lat, $lon);
-$sunr=date_sunrise(time(), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);
-$suns=date_sunset(time(), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
+$sunr = date('H:i', $result['sunrise']);
+$suns = date('H:i', $result['sunset']);
 $suns2 =date('G.i', $result['sunset']);
 $sunrs2 =date('G.i', $result['sunrise']);
 $now =date('G.i');
@@ -352,3 +352,4 @@ else{
 //end weather34 metar aviation script API	 
 
 ?>
+

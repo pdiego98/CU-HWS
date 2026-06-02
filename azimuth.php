@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_error',true);
+error_reporting(0);
 ## adapted for HWS-template
 $scrpt_vrsn_dt  = 'azimuth.php|00|2019-01-10|';  # first version in this template, only very small changes, commented echo, used lat lon tz from template
 #
@@ -56,13 +55,15 @@ $midnight = strtotime($ddd);
 $lastmnight = strtotime($ddd)-86400;
 
 //get timestamps for sunrise, sunset, and calculate length of day today
-$tsrise = date_sunrise($midnight, SUNFUNCS_RET_TIMESTAMP, $stationlat, $stationlong, $z, $offset);
-$tsset = date_sunset($midnight, SUNFUNCS_RET_TIMESTAMP, $stationlat, $stationlong, $z, $offset);
+$sun_info_today = date_sun_info($midnight, $stationlat, $stationlong);
+$tsrise = $sun_info_today['sunrise'];
+$tsset = $sun_info_today['sunset'];
 $tlod = $tsset - $tsrise;
 
 //get timestamps for sunrise, sunset, and calculate length of day yesterday
-$ysrise = date_sunrise($lastmnight, SUNFUNCS_RET_TIMESTAMP, $stationlat, $stationlong, $z, $offset);
-$ysset = date_sunset($lastmnight, SUNFUNCS_RET_TIMESTAMP, $stationlat, $stationlong, $z, $offset);
+$sun_info_yesterday = date_sun_info($lastmnight, $stationlat, $stationlong);
+$ysrise = $sun_info_yesterday['sunrise'];
+$ysset = $sun_info_yesterday['sunset'];
 $ylod = $ysset - $ysrise;
 
 //output basic sun stuff
@@ -228,3 +229,4 @@ if ((time() >= $tsrise) && (time() <= $tsset)) {
 	echo "At ".date("H:i",time())." the sun has set"."<hr br/>".PHP_EOL;
 }
 print ' -->';  ## adapted for HWS-template
+

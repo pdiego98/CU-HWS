@@ -73,7 +73,7 @@
 ". $weather["rain_units"]."
 </spanmaxwind>
  <spanwindtitle>
- ".strftime(" %b")."
+ ".date(" M")."
  </spanwindtitle>
  </div> " ;} 
  
@@ -84,7 +84,7 @@
 ". $weather["rain_units"]."
 </spanmaxwind>
  <spanwindtitle>
- ".strftime(" %b")."
+ ".date(" M")."
  </spanwindtitle>
  </div> " ;} 
  
@@ -96,15 +96,10 @@
 ". $weather["rain_units"]."
 </spanmaxwind>
  <spanwindtitle>
- ".strftime(" %b")."
+ ".date(" M")."
  </spanwindtitle>
  </div> " ;} 
  
 ?>
 </div>
-
-
-
-
-
 

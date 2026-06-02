@@ -1,5 +1,5 @@
 <?php include_once('livedata.php');//weather34 experimental daylight6 css module 1st sep 2018///?>
-<?php $thetime=$thetime= date('H');$theminute= date('i')/2;$result=date_sun_info(time(),$lat,$lon);$sunr=date_sunrise(time(),SUNFUNCS_RET_STRING,$lat,$lon,$rise_zenith,$UTC);$suns=date_sunset(time(),SUNFUNCS_RET_STRING,$lat,$lon,$set_zenith,$UTC);$sunr1=date_sunrise(strtotime('+1 day',time()),SUNFUNCS_RET_STRING,$lat,$lon,$rise_zenith,$UTC);$suns1=date_sunset(strtotime('+1 day',time()),SUNFUNCS_RET_STRING,$lat,$lon,$set_zenith,$UTC);$suns2=date('G.i',$result['sunset']);$sunr2=date('G.i',$result['sunrise']);$sunrisehour=date('H.i',$result['sunrise']);$sunsethour=date('G',$result['sunset']);$sunrisehourup=date('G',$result['sunrise']);$sunsethourdown=date('G',$result['sunset']);$now=date('G.i');
+<?php $thetime=$thetime= date('H');$theminute= date('i')/2;$result=date_sun_info(time(),$lat,$lon);$sunr=date('H:i',$result['sunrise']);$suns=date('H:i',$result['sunset']);$result1=date_sun_info(strtotime('+1 day',time()),$lat,$lon);$sunr1=date('H:i',$result1['sunrise']);$suns1=date('H:i',$result1['sunset']);$suns2=date('G.i',$result['sunset']);$sunr2=date('G.i',$result['sunrise']);$sunrisehour=date('H.i',$result['sunrise']);$sunsethour=date('G',$result['sunset']);$sunrisehourup=date('G',$result['sunrise']);$sunsethourdown=date('G',$result['sunset']);$now=date('G.i');
 $startdate1=$now;$enddate1=$suns;$diff=strtotime($enddate1)-strtotime($startdate1);$temp=$diff/86400;$days1=floor($temp);$temp=24*($temp-$days1);$hours1=floor($temp);$temp=60*($temp-$hours1);$minutes1=floor($temp);$temp=60*($temp-$minutes1);$seconds1=floor($temp);$startdate2=$sunr;$enddate2=$now;$diff=strtotime($enddate2)-strtotime($startdate2);$temp=$diff/86400;$days2=floor($temp);$temp=24*($temp-$days2);$hours2=floor($temp);$temp=60*($temp-$hours2);$minutes2=floor($temp);$temp=60*($temp-$minutes2);$seconds2=floor($temp);$startdate3=$now;$enddate3=$sunr;$diff=strtotime($enddate3)-strtotime($startdate3);$temp=$diff/86400;$days3=floor($temp);$temp=24*($temp-$days3);$hours3=floor($temp);$temp=60*($temp-$hours3);$minutes3=floor($temp);$temp=60*($temp-$minutes3);$seconds3=floor($temp);$startdate4=$sunr;$enddate4=$suns;$diff=strtotime($enddate4)-strtotime($startdate4);$temp=$diff/86400;$days4=floor($temp);$temp=24*($temp-$days4);$hours4=floor($temp);$temp=60*($temp-$hours4);$minutes4=floor($temp);$temp=60*($temp-$minutes4);$seconds4=floor($temp);$startdate5=$suns;$enddate5=$sunr;$diff=strtotime($enddate5)-strtotime($startdate5);$temp=$diff/86400;$days5=floor($temp);$temp=24*($temp-$days5);$hours5=floor($temp);$temp=60*($temp-$hours5);$minutes5=floor($temp);$temp=60*($temp-$minutes5);$seconds5=floor($temp);$startdate6=$now;$enddate6=$sunr;$diff=strtotime($enddate6)-strtotime($startdate6);$temp=$diff/86400;$days6=floor($temp);$temp=24*($temp-$days6);$hours6=floor($temp);$temp=60*($temp-$hours6);$minutes6=floor($temp);$temp=60*($temp-$minutes6);$seconds6=floor($temp);$minutesdarkness=sprintf("%02d",$minutes5);$minutesdaylight=sprintf("%02d",$minutes4);$minutesdayleft=sprintf("%02d",$minutes1);$minutesdarkleft=sprintf("%02d",$minutes3);$minutesagosunrise=sprintf("%02d",$minutes2);$hoursdaylight=sprintf("%02d",$hours4);$hoursdark=sprintf("%02d",$hours5);$dayl1=$hours4;$dayl2=$minutesdaylight;$dayl3='.';$daylighthourstoday=$dayl1.$dayl3.$dayl2;$dark1=$hours5;$dark2=$minutesdarkness;$dark3='.';$darkhourstonight=$dark1.$dark3.$dark2;
 
 //sun position based on https://github.com/KiboOst/php-sunPos
@@ -13,10 +13,10 @@ class sunPos{public function getSunPos(){$date=clone $this->date;$date->setTimez
 <div class="sun-south">South</div><div class="sun-north">North</div>
 <div class='sunlightday'>
 <svg id="weather34 total daylight" viewBox="0 0 32 32" width="7" height="7" fill="rgba(255, 124, 57,1)"><circle cx="16" cy="16" r="14" /><path d="M6 6 L26 26" /></svg>
-<?php echo "<strongnumbers> ${hours4}:${minutesdaylight} </strongnumbers>hrs <br> <period>Daylight</period>";?></div>
+<?php echo "<strongnumbers> {$hours4}:{$minutesdaylight} </strongnumbers>hrs <br> <period>Daylight</period>";?></div>
 <div class='sundarkday'>
 <svg id="weather34 total darkness" viewBox="0 0 32 32" width="7" height="7" fill="rgba(86, 95, 103,1)"><circle cx="16" cy="16" r="14" /><path d="M6 6 L26 26" /></svg></span>
-<?php echo "<strongnumbers>${hours5}:<minutes>${minutesdarkness} </strongnumbers>hrs</minutes> <br> <period>Darkness</period>";?>
+<?php echo "<strongnumbers>{$hours5}:<minutes>{$minutesdarkness} </strongnumbers>hrs</minutes> <br> <period>Darkness</period>";?>
 </div>
 <div class='sunriseday'>Sunrise <?php echo $sunricon;?> <br>
 &nbsp;&nbsp;
@@ -28,8 +28,8 @@ class sunPos{public function getSunPos(){$date=clone $this->date;$date->setTimez
 <div class='weather34sunclock'><div id='weather34sunclock2'><div id='poscircircle'> </div></div></div>
 <div class="daylightvalue1" ><hrs>hrs</hrs><span></span>
 <?php 
-if($now>$suns2){echo "<hours>${hours3}</hours> <minutes>${minutesdarkleft}</minutes> <br><period>Till Sunrise </period>";}else if($now<$sunr2){echo "${hours3} <minutes>${minutesdarkleft}</minutes> <br> <period>Till Sunrise </period>";}
-else if($now<$suns2){echo "<hours>${hours1}</hours>  <minutes>${minutesdayleft}</minutes> <br><period>Till Sunset </period>";}else if($now>$suns2){echo "${hours5} <minutes>${minutesdarkness}</minutes> <br> <period>Of Darkness</period>";}else if($now<$suns2){echo "<hours>${hours4}</hours>  <minutes>${minutesdaylight}</minutes> <br> <period>Of Daylight</period>";}
+if($now>$suns2){echo "<hours>{$hours3}</hours> <minutes>{$minutesdarkleft}</minutes> <br><period>Till Sunrise </period>";}else if($now<$sunr2){echo "{$hours3} <minutes>{$minutesdarkleft}</minutes> <br> <period>Till Sunrise </period>";}
+else if($now<$suns2){echo "<hours>{$hours1}</hours>  <minutes>{$minutesdayleft}</minutes> <br><period>Till Sunset </period>";}else if($now>$suns2){echo "{$hours5} <minutes>{$minutesdarkness}</minutes> <br> <period>Of Darkness</period>";}else if($now<$suns2){echo "<hours>{$hours4}</hours>  <minutes>{$minutesdaylight}</minutes> <br> <period>Of Daylight</period>";}
 ?><min>min</min>
 
 <div class="azimuth"><?php echo "Azimuth <orange>".$_SunPos->azimuth."</orange>&deg;";?></div>
@@ -38,3 +38,4 @@ else if($now<$suns2){echo "<hours>${hours1}</hours>  <minutes>${minutesdayleft}<
 
 
 </div></div>
+

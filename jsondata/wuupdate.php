@@ -333,7 +333,7 @@ Array
     " secs -->\n";
 
   //$Status .= "<!-- curl info\n".print_r($cinfo,true)." -->\n";
-  curl_close($ch);                                              // close the cURL session
+  // curl_close($ch);                                              // close the cURL session (deprecated in PHP 8.5)
   //$Status .= "<!-- raw data\n".$data."\n -->\n"; 
   $i = strpos($data,"\r\n\r\n");
   $headers = substr($data,0,$i);

@@ -1,20 +1,22 @@
 <?php
-# Fix malformed number from "${sunrotate} . ${minutesagosunrise}" to "${sunrotate}.${minutesagosunrise}" 6-May-2020 
+# Fix malformed number from "${sunrotate} . ${minutesagosunrise}" to "{}.{}" 6-May-2020 
 include_once('settings.php');
 include_once('common.php');
 include_once('livedata.php');
-error_reporting(E_ALL); date_default_timezone_set($TZ);
+error_reporting(0); date_default_timezone_set($TZ);
 header('Content-type: text/html; charset=UTF-8');
  ?>
 <?php //homeweatherstation calculate sunrise/set times and differences
 		$result = date_sun_info( time(), $lat, $lon );	
 		// homeweatherstation sun hours graphic beta August 8th 2016//
-		$sunr=date_sunrise(time(), SUNFUNCS_RET_STRING, $lat,$lon, $rise_zenith, $UTC);
-		$suns=date_sunset(time(), SUNFUNCS_RET_STRING, $lat,$lon, $set_zenith, $UTC);
-		$sunr1=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat,$lon, $rise_zenith, $UTC);
-		$suns1=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat,$lon, $set_zenith, $UTC);	
-		$tw=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat,$lon, 96, $UTC);
-		$twe=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat,$lon, 96, $UTC);			
+        $sun_info_today = date_sun_info(time(), $lat, $lon);
+        $sun_info_tomorrow = date_sun_info(strtotime('+1 day', time()), $lat, $lon);
+		$sunr=date('H:i', $sun_info_today['sunrise']);
+		$suns=date('H:i', $sun_info_today['sunset']);
+		$sunr1=date('H:i', $sun_info_tomorrow['sunrise']);
+		$suns1=date('H:i', $sun_info_tomorrow['sunset']);	
+		$tw=date('H:i', $sun_info_tomorrow['civil_twilight_begin']);
+		$twe=date('H:i', $sun_info_tomorrow['civil_twilight_end']);			
 		$suns2 =date( 'G.i', $result['sunset'] );
 		$sunr2 =date( 'G.i', $result['sunrise']  );
 		$suns3 =date( 'G.i', $result['sunset'] );
@@ -190,25 +192,25 @@ body,section{padding:10px}.weather34card,.weather34cards{display:-webkit-box;dis
 .daylight{margin-left:80px;margin-top:10px;z-index:auto}
 .daylightoutput{position:absolute;width:105px;height:105px;border-radius:50%;border:0px;margin-top:-110px;margin-left:0;-webkit-transform-origin:50% 48%;-moz-transform-origin:50% 48%;-o-transform-origin:50% 48%;-ms-transform-origin:50% 48%;transform-origin:50% 48%;
 -webkit-transform:rotate(<?php $dark1=$now<$sunr2;$sunrotate =$hours2;
-if ($sunrotate < 1 ) echo "${sunrotate}.${minutesagosunrise}" -25;else if ($sunrotate < 2 ) echo "${sunrotate}.${minutesagosunrise}" -10;else if ($sunrotate < 3 ) echo "${sunrotate}.${minutesagosunrise}" ;
-else if ($sunrotate < 4 ) echo "${sunrotate}.${minutesagosunrise}" *8;else if ($sunrotate < 7.01 ) echo "${sunrotate}.${minutesagosunrise}" *10;else if ($sunrotate < 9.01 ) echo "${sunrotate}.${minutesagosunrise}" *12;
-else if  ($sunrotate <17.01 ) echo "${sunrotate}.${minutesagosunrise}" *13;else if  ($sunrotate >17 ) echo "${sunrotate}.${minutesagosunrise}" *14;?>deg);?>deg);
+if ($sunrotate < 1 ) echo "{}.{}" -25;else if ($sunrotate < 2 ) echo "{}.{}" -10;else if ($sunrotate < 3 ) echo "{}.{}" ;
+else if ($sunrotate < 4 ) echo "{}.{}" *8;else if ($sunrotate < 7.01 ) echo "{}.{}" *10;else if ($sunrotate < 9.01 ) echo "{}.{}" *12;
+else if  ($sunrotate <17.01 ) echo "{}.{}" *13;else if  ($sunrotate >17 ) echo "{}.{}" *14;?>deg);?>deg);
 -moz-transform:rotate(<?php $dark1=$now<$sunr2;$sunrotate =$hours2;
-if ($sunrotate < 1 ) echo "${sunrotate}.${minutesagosunrise}" -25;else if ($sunrotate < 2 ) echo "${sunrotate}.${minutesagosunrise}" -10;else if ($sunrotate < 3 ) echo "${sunrotate}.${minutesagosunrise}" ;
-else if ($sunrotate < 4 ) echo "${sunrotate}.${minutesagosunrise}" *8;else if ($sunrotate < 7.01 ) echo "${sunrotate}.${minutesagosunrise}" *10;else if ($sunrotate < 9.01 ) echo "${sunrotate}.${minutesagosunrise}" *12;
-else if  ($sunrotate <17.01 ) echo "${sunrotate}.${minutesagosunrise}" *13;else if  ($sunrotate >17 ) echo "${sunrotate}.${minutesagosunrise}" *14;?>deg);
+if ($sunrotate < 1 ) echo "{}.{}" -25;else if ($sunrotate < 2 ) echo "{}.{}" -10;else if ($sunrotate < 3 ) echo "{}.{}" ;
+else if ($sunrotate < 4 ) echo "{}.{}" *8;else if ($sunrotate < 7.01 ) echo "{}.{}" *10;else if ($sunrotate < 9.01 ) echo "{}.{}" *12;
+else if  ($sunrotate <17.01 ) echo "{}.{}" *13;else if  ($sunrotate >17 ) echo "{}.{}" *14;?>deg);
 -o-transform:rotate(<?php $dark1=$now<$sunr2;$sunrotate =$hours2;
-if ($sunrotate < 1 ) echo "${sunrotate}.${minutesagosunrise}" -25;else if ($sunrotate < 2 ) echo "${sunrotate}.${minutesagosunrise}" -10;else if ($sunrotate < 3 ) echo "${sunrotate}.${minutesagosunrise}" ;
-else if ($sunrotate < 4 ) echo "${sunrotate}.${minutesagosunrise}" *8;else if ($sunrotate < 7.01 ) echo "${sunrotate}.${minutesagosunrise}" *10;else if ($sunrotate < 9.01 ) echo "${sunrotate}.${minutesagosunrise}" *12;
-else if  ($sunrotate <17.01 ) echo "${sunrotate}.${minutesagosunrise}" *13;else if  ($sunrotate >17 ) echo "${sunrotate}.${minutesagosunrise}" *14;?>deg);
+if ($sunrotate < 1 ) echo "{}.{}" -25;else if ($sunrotate < 2 ) echo "{}.{}" -10;else if ($sunrotate < 3 ) echo "{}.{}" ;
+else if ($sunrotate < 4 ) echo "{}.{}" *8;else if ($sunrotate < 7.01 ) echo "{}.{}" *10;else if ($sunrotate < 9.01 ) echo "{}.{}" *12;
+else if  ($sunrotate <17.01 ) echo "{}.{}" *13;else if  ($sunrotate >17 ) echo "{}.{}" *14;?>deg);
 -ms-transform:rotate(<?php $dark1=$now<$sunr2;$sunrotate =$hours2;
-if ($sunrotate < 1 ) echo "${sunrotate}.${minutesagosunrise}" -25;else if ($sunrotate < 2 ) echo "${sunrotate}.${minutesagosunrise}" -10;else if ($sunrotate < 3 ) echo "${sunrotate}.${minutesagosunrise}" ;
-else if ($sunrotate < 4 ) echo "${sunrotate}.${minutesagosunrise}" *8;else if ($sunrotate < 7.01 ) echo "${sunrotate}.${minutesagosunrise}" *10;else if ($sunrotate < 9.01 ) echo "${sunrotate}.${minutesagosunrise}" *12;
-else if  ($sunrotate <17.01 ) echo "${sunrotate}.${minutesagosunrise}" *13;else if  ($sunrotate >17 ) echo "${sunrotate}.${minutesagosunrise}" *14;?>deg);
+if ($sunrotate < 1 ) echo "{}.{}" -25;else if ($sunrotate < 2 ) echo "{}.{}" -10;else if ($sunrotate < 3 ) echo "{}.{}" ;
+else if ($sunrotate < 4 ) echo "{}.{}" *8;else if ($sunrotate < 7.01 ) echo "{}.{}" *10;else if ($sunrotate < 9.01 ) echo "{}.{}" *12;
+else if  ($sunrotate <17.01 ) echo "{}.{}" *13;else if  ($sunrotate >17 ) echo "{}.{}" *14;?>deg);
 transform:rotate(<?php $dark1=$now<$sunr2;$sunrotate =$hours2;
-if ($sunrotate < 1 ) echo "${sunrotate}.${minutesagosunrise}" -25;else if ($sunrotate < 2 ) echo "${sunrotate}.${minutesagosunrise}" -10;else if ($sunrotate < 3 ) echo "${sunrotate}.${minutesagosunrise}" ;
-else if ($sunrotate < 4 ) echo "${sunrotate}.${minutesagosunrise}" *8;else if ($sunrotate < 7.01 ) echo "${sunrotate}.${minutesagosunrise}" *10;else if ($sunrotate < 9.01 ) echo "${sunrotate}.${minutesagosunrise}" *12;
-else if  ($sunrotate <17.01 ) echo "${sunrotate}.${minutesagosunrise}" *13;else if  ($sunrotate >17 ) echo "${sunrotate}.${minutesagosunrise}" *14;?>deg);?>deg);}
+if ($sunrotate < 1 ) echo "{}.{}" -25;else if ($sunrotate < 2 ) echo "{}.{}" -10;else if ($sunrotate < 3 ) echo "{}.{}" ;
+else if ($sunrotate < 4 ) echo "{}.{}" *8;else if ($sunrotate < 7.01 ) echo "{}.{}" *10;else if ($sunrotate < 9.01 ) echo "{}.{}" *12;
+else if  ($sunrotate <17.01 ) echo "{}.{}" *13;else if  ($sunrotate >17 ) echo "{}.{}" *14;?>deg);?>deg);}
 .daylightoutput:after{content:"";font-size:0;position:absolute;z-index:10;right:20px;width:9px;height:9px;-webkit-border-radius:50%;border-radius:50%;background:<?php if ($elev<=0 && $elev>-4){echo "rgba(255, 112, 50, 0.5)";}else if ($elev<=0){echo "rgba(86, 95, 103, 0.7)";}else echo "rgba(255, 124, 57,0.8)";?>;border:0}
 sup{color:#f8f8f8}red{color:#FF6F61;opacity:0.6}
 </style>
@@ -341,11 +343,11 @@ function do_phase($date,$time,$tzone){
 <svg id="i-ban" viewBox="0 0 32 32" width="10" height="10" fill="rgba(255, 136, 65, 1.00)" stroke="rgba(255, 136, 65, 1.00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
 <circle cx="16" cy="16" r="14" /><path d="M6 6 L26 26" /></svg> <?php echo $lang['Moonrise'].':';?>
 <span style="color:#aaa;font-weight:normal;">
-<?php echo  date('D jS-M-Y' . ' ' . $timeFormatShort, $MoonRise ),"\n";?>
+<?php echo  date('D jS-M-Y' . ' ' . $timeFormatShort, (int)$MoonRise ),"\n";?>
 <svg id="i-chevron-top" viewBox="0 0 32 32" width="10" height="10" fill="none" stroke="#ff8841" stroke-linecap="round" stroke-linejoin="round" stroke-width="10%"><path d="M30 20 L16 8 2 20" /></svg>
 </span><br>
 <svg id="i-ban" viewBox="0 0 32 32" width="10" height="10" fill="#D46842" stroke="#D46842" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%"><circle cx="16" cy="16" r="14" /><path d="M6 6 L26 26" /></svg> <?php echo $lang['Moonset'].':';?> <span style="color:#aaa;font-weight:normal;">
-<?php echo date('D jS-M-Y' . ' ' . $timeFormatShort, $MoonSet ),"\n";?>
+<?php echo date('D jS-M-Y' . ' ' . $timeFormatShort, (int)$MoonSet ),"\n";?>
 <svg id="i-chevron-bottom" viewBox="0 0 32 32" width="10" height="10" fill="none" stroke="#ff8841" stroke-linecap="round" stroke-linejoin="round" stroke-width="10%"><path d="M30 12 L16 24 2 12" /></svg>
 </span><br>
 <?php  // full/new moon for homeweather station  // ?>
@@ -356,13 +358,13 @@ function do_phase($date,$time,$tzone){
 $now1 =time();$moon1 = new MoonPhase();
 echo "";
 if ($now1 < $moon1->full_moon()) 
-{echo date('D jS-M-Y', $moon1->full_moon() );}
-else echo date('D jS-M-Y', $moon1->next_full_moon() );
+{echo date('D jS-M-Y', (int)$moon1->full_moon() );}
+else echo date('D jS-M-Y', (int)$moon1->next_full_moon() );
 ?></span><br>
 <span style="color:#aaa;"> 
 <svg id="i-ban" viewBox="0 0 32 32" width="10" height="10" fill="#777" stroke="#777" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
 <circle cx="16" cy="16" r="14" /> <path d="M6 6 L26 26" /></svg>
-<?php echo $lang['Nextnewmoon'].':';?><?php $moon=new MoonPhase();$nextnewmoon=date('D jS-M-Y',$moon->next_new_moon());echo $nextnewmoon;?>
+<?php echo $lang['Nextnewmoon'].':';?><?php $moon=new MoonPhase();$nextnewmoon=date('D jS-M-Y',(int)$moon->next_new_moon());echo $nextnewmoon;?>
 </span><br /><svg id="i-ban" viewBox="0 0 32 32" width="10" height="10" fill="rgba(154, 186, 47, 1.00)" stroke="rgba(154, 186, 47, 1.00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
 <circle cx="16" cy="16" r="14" /><path d="M6 6 L26 26" /></svg> 
 <?php // homeweatherstation create an instance of the age of moon
@@ -384,15 +386,15 @@ $moon = new MoonPhase();$moonage =round($moon->age(),2);echo $lang['Moonphase'].
 <circle cx="16" cy="16" r="14" /><path d="M6 6 L26 26" /></svg> 
 <?php echo $lang['Sunrise'].':';?> <?php //sunrise
 echo '';
-if(date('H:i')  > $sunr) {echo "<span style='color:#aaa;'>".$lang['Tomorrow']." </span> (" . $tw . ") <span style='color:#ff8841;'>" . date($timeFormatShort, date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_TIMESTAMP, $lat,$lon, $rise_zenith, $UTC)) . "</span>  ";}
-else echo "<span style='color:#aaa;'>".$lang['Today']." </span> (" . $tw . ") <span style='color:#ff8841;'>" . date($timeFormatShort, date_sunrise(time(), SUNFUNCS_RET_TIMESTAMP, $lat, $lon, $rise_zenith, $UTC)) . "</span>  ";
+if(date('H:i')  > $sunr) {echo "<span style='color:#aaa;'>".$lang['Tomorrow']." </span> (" . $tw . ") <span style='color:#ff8841;'>" . date($timeFormatShort, date_sun_info(strtotime('+1 day', time()), $lat, $lon)['sunrise']) . "</span>  ";}
+else echo "<span style='color:#aaa;'>".$lang['Today']." </span> (" . $tw . ") <span style='color:#ff8841;'>" . date($timeFormatShort, date_sun_info(time(), $lat, $lon)['sunrise']) . "</span>  ";
 ?> <svg id="i-chevron-top" viewBox="0 0 32 32" width="10" height="10" fill="none" stroke="rgba(255, 136, 65, 1.00)" stroke-linecap="round" stroke-linejoin="round" stroke-width="10%"><path d="M30 20 L16 8 2 20" /></svg>
 <br><svg id="i-ban" viewBox="0 0 32 32" width="10" height="10" fill="rgba(210, 90, 73, 1.00)" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1%"><circle cx="16" cy="16" r="14" />
 <path d="M6 6 L26 26" /></svg>
 <span style="color:rgba(255, 136, 65, 1.00);"></span> <?php echo $lang['Sunset'].':';?> <?php //sunset 
 echo '';
-if(date('H:i')  > $suns) {echo "<span style='color:#aaa;'>".$lang['Tomorrow']." <span style='color:rgba(255, 136, 65, 1.00);'>" . date($timeFormatShort, date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_TIMESTAMP, $lat,$lon, $rise_zenith, $UTC)) . "</daylight></span></span> (" . $twe . ") ";}
-else echo "<span style='color:#aaa;'>".$lang['Today']." <span style='color:#e9996a;'>" . date($timeFormatShort, date_sunset(time(), SUNFUNCS_RET_TIMESTAMP, $lat, $lon, $rise_zenith, $UTC)) . " </span>(" . $twe . ") ";
+if(date('H:i')  > $suns) {echo "<span style='color:#aaa;'>".$lang['Tomorrow']." <span style='color:rgba(255, 136, 65, 1.00);'>" . date($timeFormatShort, date_sun_info(strtotime('+1 day', time()), $lat, $lon)['sunset']) . "</daylight></span></span> (" . $twe . ") ";}
+else echo "<span style='color:#aaa;'>".$lang['Today']." <span style='color:#e9996a;'>" . date($timeFormatShort, date_sun_info(time(), $lat, $lon)['sunset']) . " </span>(" . $twe . ") ";
 ?><svg id="i-chevron-bottom" viewBox="0 0 32 32" width="10" height="10" fill="none" stroke="#ff8841" stroke-linecap="round" stroke-linejoin="round" stroke-width="10%"><path d="M30 12 L16 24 2 12" /></svg></span><br>
 <svg id="i-ban" viewBox="0 0 32 32" width="10" height="10" fill="rgba(255, 147, 80, 1.00)" stroke="none)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1%"><circle cx="16" cy="16" r="14" />
 <path d="M6 6 L26 26" /></svg> 
@@ -424,3 +426,4 @@ echo $lang['Darkness']." <grey> $hours5:$minutesdarkness </grey> ";?>
 <script>
 function isPositive(n){return n>0?1:0>n?-1:void 0}!function(){"use strict";function n(n){return n.valueOf()/S-.5+R}function o(n){return new Date((n+.5-R)*S)}function t(o){return n(o)-A}function e(n,o){return z(M(n)*P(k)-p(o)*M(k),P(n))}function i(n,o){return x(M(o)*P(k)+P(o)*M(k)*M(n))}function a(n,o,t){return z(M(n),P(n)*M(o)-p(t)*P(o))}function r(n,o,t){return x(M(o)*M(t)+P(o)*P(t)*P(n))}function s(n,o){return I*(280.16+360.9856235*n)-o}function d(n){return I*(357.5291+.98560028*n)}function u(n){var o=I*(1.9148*M(n)+.02*M(2*n)+3e-4*M(3*n)),t=102.9372*I;return n+o+t+b}function c(n){var o=d(n),t=u(o);return{dec:i(t,0),ra:e(t,0)}}function h(n,o){return Math.round(n-$-o/(2*b))}function m(n,o,t){return $+(n+o)/(2*b)+t}function g(n,o,t){return A+n+.0053*M(o)-.0069*M(2*t)}function l(n,o,t){return H((M(n)-M(o)*M(t))/(P(o)*P(t)))}function f(n,o,t,e,i,a,r){var s=l(n,t,e),d=m(s,o,i);return g(d,a,r)}function v(n){var o=I*(218.316+13.176396*n),t=I*(134.963+13.064993*n),a=I*(93.272+13.22935*n),r=o+6.289*I*M(t),s=5.128*I*M(a),d=385001-20905*P(t);return{ra:e(r,s),dec:i(r,s),dist:d}}function w(n,o){return new Date(n.valueOf()+o*S/24)}var b=Math.PI,M=Math.sin,P=Math.cos,p=Math.tan,x=Math.asin,z=Math.atan2,H=Math.acos,I=b/180,S=864e5,R=2440588,A=2451545,k=23.4397*I,D={};D.getPosition=function(n,o,e){var i=I*-e,d=I*o,u=t(n),h=c(u),m=s(u,i)-h.ra;return{azimuth:a(m,d,h.dec),altitude:r(m,d,h.dec)}};var W=D.times=[[-.833,"sunrise","sunset"],[-.3,"sunriseEnd","sunsetStart"],[-6,"dawn","dusk"],[-12,"nauticalDawn","nauticalDusk"],[-18,"nightEnd","night"],[6,"goldenHourEnd","goldenHour"]];D.addTime=function(n,o,t){W.push([n,o,t])};var $=9e-4;D.getTimes=function(n,e,a){var r,s,c,l,v,w=I*-a,b=I*e,M=t(n),P=h(M,w),p=m(0,w,P),x=d(p),z=u(x),H=i(z,0),S=g(p,x,z),R={solarNoon:o(S),nadir:o(S-.5)};for(r=0,s=W.length;s>r;r+=1)c=W[r],l=f(c[0]*I,w,b,H,P,x,z),v=S-(l-S),R[c[1]]=o(v),R[c[2]]=o(l);return R},D.getMoon34Position=function(n,o,e){var i=I*-e,d=I*o,u=t(n),c=v(u),h=s(u,i)-c.ra,m=r(h,d,c.dec);return m+=.017*I/p(m+10.26*I/(m+5.1*I)),{azimuth:a(h,d,c.dec),altitude:m,distance:c.dist}},D.getMoon34Illumination=function(n){var o=t(n),e=c(o),i=v(o),a=149598e3,r=H(M(e.dec)*M(i.dec)+P(e.dec)*P(i.dec)*P(e.ra-i.ra)),s=z(a*M(r),i.dist-a*P(r)),d=z(P(e.dec)*M(e.ra-i.ra),M(e.dec)*P(i.dec)-P(e.dec)*M(i.dec)*P(e.ra-i.ra));return{fraction:(1+P(s))/2,phase:.5+.5*s*(0>d?-1:1)/Math.PI,angle:d}},D.getMoon34Times=function(n,o,t){var e=new Date(n);e.setHours(0),e.setMinutes(0),e.setSeconds(0),e.setMilliseconds(0);for(var i,a,r,s,d,u,c,h,m,g,l,f,v,b=.133*I,M=D.getMoon34Position(e,o,t).altitude-b,P=1;24>=P&&(i=D.getMoon34Position(w(e,P),o,t).altitude-b,a=D.getMoon34Position(w(e,P+1),o,t).altitude-b,d=(M+a)/2-i,u=(a-M)/2,c=-u/(2*d),h=(d*c+u)*c+i,m=u*u-4*d*i,g=0,m>=0&&(v=Math.sqrt(m)/(2*Math.abs(d)),l=c-v,f=c+v,Math.abs(l)<=1&&g++,Math.abs(f)<=1&&g++,-1>l&&(l=f)),1===g?0>M?r=P+l:s=P+l:2===g&&(r=P+(0>h?f:l),s=P+(0>h?l:f)),!r||!s);P+=2)M=a;var p={};return r&&(p.rise=w(e,r)),s&&(p.set=w(e,s)),r||s||(p[h>0?"alwaysUp":"alwaysDown"]=!0),p},"function"==typeof define&&define.amd?define(D):"undefined"!=typeof module?module.exports=D:window.SunCalc=D}(),Date.prototype.addHours=function(n){return this.setHours(this.getHours()+n),this};var datetime=(new Date).addHours(0),getMoon34Illumination=SunCalc.getMoon34Illumination(datetime),Moon34Fraction=getMoon34Illumination.fraction,Moon34Phase=getMoon34Illumination.phase,Moon34Angle=getMoon34Illumination.angle,Moon34Rotate=Moon34Angle;isWaxing=isPositive(Moon34Angle),Moon34Size=20.5,zIndex=10,shadowWidth=Moon34Size,shadowHeight=Moon34Size,shadowRadius=Math.abs(50-100*Moon34Fraction),lightMove=(100-100*Moon34Fraction)*isWaxing,shadowMove=100*Moon34Fraction*isWaxing,Moon34Phase>0&&.25>Moon34Phase?$("#Moon34").css({background:"linear-gradient(to bottom,rgba(210,220,230,1) 25%,rgba(200,210,250,1) 100%)"}):Moon34Phase>.25&&.5>Moon34Phase?$("#Moon34").css({background:"linear-gradient(to bottom,RGBA(42, 46, 51, 1.00) 25%,RGBA(42, 46, 51, 1.00) 100%)"}):Moon34Phase>.5&&.75>Moon34Phase?$("#Moon34").css({background:"linear-gradient(to bottom,RGBA(42, 46, 51, 1.00) 25%,RGBA(42, 46, 51, 1.00) 100%)"}):Moon34Phase>.75&&1>Moon34Phase&&$("#Moon34").css({background:"linear-gradient(to bottom,rgba(210,220,230,1) 25%,rgba(200,210,250,1) 100%)"}),$("#Moon34").css({position:"absolute",overflow:"hidden",margin:"0","z-index":zIndex,"border-radius":"50%",width:Moon34Size+"vmin",height:Moon34Size+"vmin",top:"74px",left:"150px","mix-blend-mode":"lighten"}),$(".light").css({position:"absolute",overflow:"hidden",margin:"0 auto","z-index":zIndex+1,"border-radius":shadowRadius+"%/50%",width:shadowWidth+"vmin",height:shadowHeight+"vmin",top:"calc(50% - "+shadowHeight/2+"vmin)",left:"calc( (50% - "+shadowWidth/2+"vmin) - "+lightMove+"%)",background:"linear-gradient(to bottom,rgba(210,220,230,1) 25%,rgba(200,210,250,1) 100%)","box-shadow":"inset 0vmin 0vmin "+.25*Moon34Size+"vmin "+.01*Moon34Size+"vmin rgba(75,50,100,.5)","mix-blend-mode":"lighten"}),$(".shadow").css({position:"absolute",overflow:"hidden",margin:"0 auto","z-index":zIndex+2,"border-radius":shadowRadius+"%/50%",width:shadowWidth+"vmin",height:shadowHeight+"vmin",top:"calc(50% - "+shadowHeight/2+"vmin)",right:"calc( (50% - "+shadowWidth/2+"vmin) - "+shadowMove+"%)",background:"linear-gradient(to bottom,RGBA(42, 46, 51, 0.6) 25%,RGBA(42, 46, 51, 0.6) 100%)"});
 </script>
+

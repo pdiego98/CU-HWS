@@ -14,7 +14,7 @@ $fp = fopen($complete_save_loc, 'wb');
 curl_setopt($ch, CURLOPT_FILE, $fp);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_exec($ch);
-curl_close($ch);
+// curl_close($ch);
 fclose($fp);
 ?>
 
@@ -27,7 +27,7 @@ $fp1 = fopen($complete_save_loc1, 'wb');
 curl_setopt($ch1, CURLOPT_FILE, $fp1);
 curl_setopt($ch1, CURLOPT_HEADER, 0);
 curl_exec($ch1);
-curl_close($ch1);
+// curl_close($ch1);
 fclose($fp1);
 ?>
 
@@ -41,7 +41,7 @@ $fp2 = fopen($complete_save_loc2, 'wb');
 curl_setopt($ch2, CURLOPT_FILE, $fp2);
 curl_setopt($ch2, CURLOPT_HEADER, 0);
 curl_exec($ch2);
-curl_close($ch2);
+// curl_close($ch2);
 fclose($fp2);
 ?>
 

@@ -153,6 +153,4 @@ else if( $weather["temp_units"]=='C' && anyToC($weather["temp"])<10){echo "<div 
 
 </div></div></div>
 
-<div class="tempindoorextra"><span style="position:absolute;left:50px;top:0;""><a href="homeindoor.php" data-featherlight="iframe" title="Home Indoor enviroment"><?php echo $hometemp?></a></span>
-</div>
 </div></div>

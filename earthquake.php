@@ -1,35 +1,48 @@
-<?php include('livedata.php');include('common.php');date_default_timezone_set($TZ);$json_string=file_get_contents('jsondata/eqnotification.txt');$parsed_json=json_decode($json_string,true);
+<?php include('livedata.php');include('common.php');date_default_timezone_set($TZ);$json_string=@file_get_contents('jsondata/eqnotification.txt');$parsed_json=json_decode($json_string,true);
+
+if (empty($parsed_json) || !is_array($parsed_json) || count($parsed_json) < 4) {
+    echo '<div class="eqcirclehomeregional">
+<div class="eqtexthomeregional">
+<div class="eqcircle1home"><spanyellowmag>Offline
+<svgearthquake>
+<svg id="i-activity" viewBox="0 0 32 32" width="10" height="10" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M4 16 L11 16 14 29 18 3 21 16 28 16" />
+</svg></svgearthquake>
+</spanyellowmag></div>
+<div class ="spane"> EQ Data <regionalmoderate>Offline</regionalmoderate></div>
+<div class="eqtexthome"> N/A <br> Time: N/A <br> Distance<colordist>N/A</colordist> </div>
+</div></div>';
+    exit;
+}
 // fixed deprecated curly brace array address issue  5-May-2020
 $software    = 'Cumulus <span>Software</span>';
 $designedfor    = '<br>For Cumulus';
-$magnitude=number_format($parsed_json[0]['magnitude'],1);
-$eqtitle=$parsed_json[0]['location'];
-$time=$parsed_json[0]['date_time'];
-$lati=$parsed_json[0]['latitude'];
-$longi=$parsed_json[0]['longitude'];
-$time=$parsed_json[0]['date_time'];
+$magnitude=isset($parsed_json[0]['magnitude']) ? number_format((float)$parsed_json[0]['magnitude'],1) : 0;
+$eqtitle=$parsed_json[0]['location'] ?? 'Unknown';
+$time=$parsed_json[0]['date_time'] ?? date('Y-m-d H:i:s');
+$lati=$parsed_json[0]['latitude'] ?? 0;
+$longi=$parsed_json[0]['longitude'] ?? 0;
 $eventime=date($timeFormatShort,strtotime("$time"));
 
-$magnitude1=number_format($parsed_json[1]['magnitude'],1);
-$eqtitle1=$parsed_json[1]['location'];
-$lati1=$parsed_json[1]['latitude'];
-$longi1=$parsed_json[1]['longitude'];
-$time1=$parsed_json[1]['date_time'];
+$magnitude1=isset($parsed_json[1]['magnitude']) ? number_format((float)$parsed_json[1]['magnitude'],1) : 0;
+$eqtitle1=$parsed_json[1]['location'] ?? 'Unknown';
+$lati1=$parsed_json[1]['latitude'] ?? 0;
+$longi1=$parsed_json[1]['longitude'] ?? 0;
+$time1=$parsed_json[1]['date_time'] ?? date('Y-m-d H:i:s');
 $eventime1=date($timeFormatShort,strtotime("$time1"));
 
-$magnitude2=number_format($parsed_json[2]['magnitude'],1);
-$eqtitle2=$parsed_json[2]['location'];
-$lati2=$parsed_json[2]['latitude'];
-$longi2=$parsed_json[2]['longitude'];
-$time2=$parsed_json[2]['date_time'];
+$magnitude2=isset($parsed_json[2]['magnitude']) ? number_format((float)$parsed_json[2]['magnitude'],1) : 0;
+$eqtitle2=$parsed_json[2]['location'] ?? 'Unknown';
+$lati2=$parsed_json[2]['latitude'] ?? 0;
+$longi2=$parsed_json[2]['longitude'] ?? 0;
+$time2=$parsed_json[2]['date_time'] ?? date('Y-m-d H:i:s');
 $eventime2=date($timeFormatShort,strtotime("$time2"));
 
-
-$magnitude3=number_format($parsed_json[3]['magnitude'],1);
-$eqtitle3=$parsed_json[3]['location'];
-$lati3=$parsed_json[3]['latitude'];
-$longi3=$parsed_json[3]['longitude'];
-$time3=$parsed_json[3]['date_time'];
+$magnitude3=isset($parsed_json[3]['magnitude']) ? number_format((float)$parsed_json[3]['magnitude'],1) : 0;
+$eqtitle3=$parsed_json[3]['location'] ?? 'Unknown';
+$lati3=$parsed_json[3]['latitude'] ?? 0;
+$longi3=$parsed_json[3]['longitude'] ?? 0;
+$time3=$parsed_json[3]['date_time'] ?? date('Y-m-d H:i:s');
 $eventime3=date($timeFormatShort,strtotime("$time3"));?>
 
 
@@ -63,7 +76,7 @@ if ($weather["wind_units"] == 'mph') {
 
 //regional >
 //+5.5
- if ($eqdist<$notifyDistEQ && $magnitude>5){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitude}
+ if ($eqdist<$notifyDistEQ && $magnitude>5){echo "<div class=\"eqcircle1home\"><spanredmag>`{`$1`}
  <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -74,7 +87,7 @@ if ($weather["wind_units"] == 'mph') {
  <div class =\"spane\"> ".$lang['RegionalE']."  <regionalstrong>".$lang['StrongE']."</regionalstrong></div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 
-else if ($eqdist1<$notifyDistEQ && $magnitude1>5){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitude1}
+else if ($eqdist1<$notifyDistEQ && $magnitude1>5){echo "<div class=\"eqcircle1home\"><spanredmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -86,7 +99,7 @@ else if ($eqdist1<$notifyDistEQ && $magnitude1>5){echo "<div class=\"eqcircle1ho
 <div class=\"eqtexthome\"> $eqtitle1 <br> Time: $eventime1 <br> Distance<colordist>".$eqdist1."</colordist> </div>";}
 
 
-else if($eqdist2<$notifyDistEQ && $magnitude2>5){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitude2}
+else if($eqdist2<$notifyDistEQ && $magnitude2>5){echo "<div class=\"eqcircle1home\"><spanredmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -97,7 +110,7 @@ else if($eqdist2<$notifyDistEQ && $magnitude2>5){echo "<div class=\"eqcircle1hom
 <div class=\"eqtexthome\"> $eqtitle2 <br> Time: $eventime2 <br> Distance<colordist>".$eqdist2."</colordist> </div>";}
 
 
-else if ($eqdist3<$notifyDistEQ && $magnitude3>5){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitude3}
+else if ($eqdist3<$notifyDistEQ && $magnitude3>5){echo "<div class=\"eqcircle1home\"><spanredmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -109,7 +122,7 @@ else if ($eqdist3<$notifyDistEQ && $magnitude3>5){echo "<div class=\"eqcircle1ho
 
 
 // regional +4
- else if ($eqdist<$notifyDistEQ && $magnitude4>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>${magnitude}
+ else if ($eqdist<$notifyDistEQ && $magnitude>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>`{`$1`}
  <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -120,7 +133,7 @@ else if ($eqdist3<$notifyDistEQ && $magnitude3>5){echo "<div class=\"eqcircle1ho
  <div class =\"spane\">".$lang['RegionalE']." <regionalmoderate>".$lang['ModerateE']."</regionalmoderate></div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 
-else if ($eqdist1<$notifyDistEQ && $magnitude1>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>${magnitude1}
+else if ($eqdist1<$notifyDistEQ && $magnitude1>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>`{`$1`}
 
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
@@ -132,7 +145,7 @@ else if ($eqdist1<$notifyDistEQ && $magnitude1>4){echo "<div class=\"eqcircle1ho
 <div class=\"eqtexthome\"> $eqtitle1 <br> Time: $eventime1 <br> Distance<colordist>".$eqdist1."</colordist> </div>";}
 
 
-else if($eqdist2<$notifyDistEQ && $magnitude2>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>${magnitude2}
+else if($eqdist2<$notifyDistEQ && $magnitude2>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -143,7 +156,7 @@ else if($eqdist2<$notifyDistEQ && $magnitude2>4){echo "<div class=\"eqcircle1hom
 <div class=\"eqtexthome\"> $eqtitle2 <br> Time: $eventime2 <br> Distance<colordist>".$eqdist2."</colordist> </div>";}
 
 
-else if ($eqdist3<$notifyDistEQ && $magnitude3>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>${magnitude3}
+else if ($eqdist3<$notifyDistEQ && $magnitude3>4){echo "<div class=\"eqcircle1home\"><spanyellowmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -156,7 +169,7 @@ else if ($eqdist3<$notifyDistEQ && $magnitude3>4){echo "<div class=\"eqcircle1ho
 
 
 //regional <4
-else if ($eqdist<$notifyDistEQ && $magnitude<4){echo "<div class=\"eqcircle1home\"><spangreenmag>${magnitude} 
+else if ($eqdist<$notifyDistEQ && $magnitude<4){echo "<div class=\"eqcircle1home\"><spangreenmag>`{`$1`} 
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -166,7 +179,7 @@ else if ($eqdist<$notifyDistEQ && $magnitude<4){echo "<div class=\"eqcircle1home
  <div class =\"spane\"> ".$lang['RegionalE']."  <regionalminor>".$lang['MinorE']."</regionalminor></div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 
-else if ($eqdist1<$notifyDistEQ && $magnitude1<4){echo "<div class=\"eqcircle1home\"><spangreenmag>${magnitude1}
+else if ($eqdist1<$notifyDistEQ && $magnitude1<4){echo "<div class=\"eqcircle1home\"><spangreenmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -176,7 +189,7 @@ else if ($eqdist1<$notifyDistEQ && $magnitude1<4){echo "<div class=\"eqcircle1ho
  <div class =\"spane\"> ".$lang['RegionalE']."  <regionalminor>".$lang['MinorE']."</regionalminor></div>
 <div class=\"eqtexthome\"> $eqtitle1 <br> Time: $eventime1 <br> Distance<colordist>".$eqdist1."</colordist> </div>";}
 
-else if($eqdist2<$notifyDistEQ && $magnitude2<4){echo "<div class=\"eqcircle1home\"><spangreenmag>${magnitude2}
+else if($eqdist2<$notifyDistEQ && $magnitude2<4){echo "<div class=\"eqcircle1home\"><spangreenmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -186,7 +199,7 @@ else if($eqdist2<$notifyDistEQ && $magnitude2<4){echo "<div class=\"eqcircle1hom
  <div class =\"spane\"> ".$lang['RegionalE']."  <regionalminor>".$lang['MinorE']."</regionalminor></div>
 <div class=\"eqtexthome\"> $eqtitle2 <br> Time: $eventime2 <br> Distance<colordist>".$eqdist2."</colordist> </div>";}
 
-else if ($eqdist3<$notifyDistEQ && $magnitude3<4){echo "<div class=\"eqcircle1home\"><spangreenmag>${magnitude3}
+else if ($eqdist3<$notifyDistEQ && $magnitude3<4){echo "<div class=\"eqcircle1home\"><spangreenmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -201,7 +214,7 @@ else if ($eqdist3<$notifyDistEQ && $magnitude3<4){echo "<div class=\"eqcircle1ho
 
 //worldwide will appear if no regional earthquakes are listed or detected 
 //minor
-else if ($magnitude<4){echo "<div class=\"eqcircle1home\"><spangreenmag>${magnitude} 
+else if ($magnitude<4){echo "<div class=\"eqcircle1home\"><spangreenmag>`{`$1`} 
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -211,7 +224,7 @@ else if ($magnitude<4){echo "<div class=\"eqcircle1home\"><spangreenmag>${magnit
  <div class =\"spane\"> <regionalminor>".$lang['MinorE']."</regionalminor> </div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 //moderate
-else if ($magnitude<5){echo "<div class=\"eqcircle1home\"><spanyellowmag>${magnitude}
+else if ($magnitude<5){echo "<div class=\"eqcircle1home\"><spanyellowmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -221,7 +234,7 @@ else if ($magnitude<5){echo "<div class=\"eqcircle1home\"><spanyellowmag>${magni
 <div class =\"spane\"> <regionalmoderate>".$lang['ModerateE']."</regionalmoderate> </div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 //strong
-else if ($magnitude<7){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitude}
+else if ($magnitude<7){echo "<div class=\"eqcircle1home\"><spanredmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -231,7 +244,7 @@ else if ($magnitude<7){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitud
 <div class =\"spane\"> <regionalstrong>".$lang['StrongE']."</regionalstrong> </div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 //very strong
-else if ($magnitude<10){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitude}
+else if ($magnitude<10){echo "<div class=\"eqcircle1home\"><spanredmag>`{`$1`}
 <svgearthquake>
 <svg id='i-activity' viewBox='0 0 32 32' width='10' height='10' fill='none' stroke='currentcolor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'>
     <path d='M4 16 L11 16 14 29 18 3 21 16 28 16' />
@@ -241,3 +254,4 @@ else if ($magnitude<10){echo "<div class=\"eqcircle1home\"><spanredmag>${magnitu
 <div class =\"spane\"> Very <regionalstrong>".$lang['StrongE']."</regionalstrong> !!</div>
 <div class=\"eqtexthome\"> $eqtitle <br> Time: $eventime <br> Distance<colordist>".$eqdist."</colordist> </div>";}
 ?>
+

@@ -18,8 +18,6 @@ else echo' <a class="menucolor" href="./?units=metric">Units</a>';?></div>
 <div id="weather34sidebarMenu">
 <br /><br /><br />
 <ul class="weather34sidebarMenuInner">
-<li><a href="#">ADMIN</a></li>
-<li><a href="easyweathersetup.php" target="_blank" title="WEATHERSTATION SETTINGS PAGE"><?php echo $weather34settingsicon; echo " ",$lang['Settings']; ?> </a></li> 
 <li><a href="#">USER PREFERENCES</a></li>
 <li><a href="index.php" title="WEATHERSTATION HOME PAGE"> <?php echo $weather34homeicon; echo ' Home'; ?> </a></li>  
 <li><a href="<?php if($theme=='dark'){echo'?theme=light';}else{echo'?theme=dark';}?>">

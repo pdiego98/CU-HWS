@@ -4,9 +4,14 @@
 uppercase{ text-transform:capitalize;}
 </style>
 <?php include('metar34get.php'); error_reporting(0);
-$result = date_sun_info(time(), $lat, $lon);$sunr=date_sunrise(time(), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);$suns=date_sunset(time(), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
-$sunr1=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);$suns1=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
-$tw=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, 96, $UTC);$twe=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, 96, $UTC);
+$result = date_sun_info(time(), $lat, $lon);
+$sun_info_tomorrow = date_sun_info(strtotime('+1 day', time()), $lat, $lon);
+$sunr=date('H:i', $result['sunrise']);
+$suns=date('H:i', $result['sunset']);
+$sunr1=date('H:i', $sun_info_tomorrow['sunrise']);
+$suns1=date('H:i', $sun_info_tomorrow['sunset']);
+$tw=date('H:i', $sun_info_tomorrow['civil_twilight_begin']);
+$twe=date('H:i', $sun_info_tomorrow['civil_twilight_end']);
 $suns2 =date('G.i', $result['sunset']);$sunr2 =date('G.i', $result['sunrise']);$suns3 =date('G.i', $result['sunset']);$sunr3 =date('G.i', $result['sunrise']);$sunrisehour =date('G', $result['sunrise']);
 $sunsethour =date('G', $result['sunset']);$twighlight_begin =date('G:i', $result['civil_twilight_begin']);$twighlight_end =date('G:i', $result['civil_twilight_end']);$now =date('G.i');
 ?>

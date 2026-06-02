@@ -455,7 +455,7 @@ function microtime_float()
 		} else {
 			$headerSize = 0;
 		}
-    curl_close($ch); // close the cURL session
+    // curl_close($ch); // close the cURL session (deprecated in PHP 8.5)
 
     // $Debug .= "<!-- raw data\n".$data."\n -->\n";
     //$stuff = explode("\r\n\r\n",$data); // maybe we have more than one header due to redirects.

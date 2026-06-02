@@ -1,8 +1,8 @@
 <?php include('shared.php');
 // K-INDEX & SOLAR DATA FOR HOMEWEATHERSTATION TEMPLATE RADIO HAMS REJOICE :-) //
 $str = file_get_contents('jsondata/kindex.txt');
-$json = array_reverse(json_decode($str,false));
-$kp =  $json[1][1];
+$json = array_reverse(json_decode($str,true));
+$kp =  isset($json[1][1]) && is_numeric($json[1][1]) ? (float)$json[1][1] : 0;
 
 
 	####################################################################################################

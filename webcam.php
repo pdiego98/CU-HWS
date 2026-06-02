@@ -8,9 +8,9 @@
 # configure webcamsmall.php with the same $myCamUrl as below
 #$myCamUrl = "http://icons.wunderground.com/webcamramdisk/k/c/KCASARATOGA/1/current.jpg";
 #$myCamUrl = 'http://travelingrvwx.com/webcam/jpgwebcam.jpg';
-$myCamUrl = "http://saratogawx.dyndns.org:18080/netcam.php";
+$myCamUrl = "https://meteo.skytel.it/webcam/image.jpg";
 $numCycles = 60; // max number of seconds to auto-reload the image
-$refreshEvery = 2; // refresh every N seconds;
+$refreshEvery = 5000; // refresh every N seconds;
 # end of settings
 
 if(!function_exists('lang')) {
@@ -78,10 +78,17 @@ if(!function_exists('lang')) {
 }
 .camcenter {
   text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: calc(100vh - 120px) !important;
 }
 .camcenter img {
-  max-height: 290px !important;
-  max-width:  720px !important;
+  max-height: 100% !important;
+  max-width:  100% !important;
+  height: auto !important;
+  width: auto !important;
+  object-fit: contain !important;
 }
 </style>
 </head>

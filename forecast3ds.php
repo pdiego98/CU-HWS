@@ -115,7 +115,7 @@ $forecastime=filemtime('jsondata/darksky-'.$language.'.txt');
 			
 			
             	  echo '<div class="darkskyforecastinghome">';  
-                  echo '<div class="darkskyweekdayhome">'.strftime("%a %b %e", $darkskydayTime).'<br>';  				  
+                  echo '<div class="darkskyweekdayhome">'.date("D M j", $darkskydayTime).'<br>';  				  
 				  if ($darkskydayacumm>0 ){echo '<img src="css/darkskyicons/snow.svg" width="45"></img><br>';} 
 				  else if ($darkskydayIcon == 'partly-cloudy-night'){echo '<img src="css/darkskyicons/partly-cloudy-day.svg" width="45"></img><br>';}     
 				  else echo '<img src="css/darkskyicons/'.$darkskydayIcon.'.svg" width="45"></img><br>';

@@ -166,7 +166,7 @@
 <link rel="stylesheet" href="weather34chartstyle.css?ver=3.0">
 </head>
 <body>
-<div class="weather34darkbrowser" url="<?php echo $stationlocation;?> <?php echo $lang['Windspeed'] ;?> - <?php echo $lang['Gust'] ;?> <?php echo strftime(" %B") ;?> <?php echo date(" Y") ;?>"></div>
+<div class="weather34darkbrowser" url="<?php echo $stationlocation;?> <?php echo $lang['Windspeed'] ;?> - <?php echo $lang['Gust'] ;?> <?php echo date(" F") ;?> <?php echo date(" Y") ;?>"></div>
 <div style="width:auto;background:0;padding:0px;margin-left:5px;font-size: 12px;border-radius:3px;">
 <div id="chartContainer" class="chartContainer"></div></div>
 <div class="weather34browser-footer">

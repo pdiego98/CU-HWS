@@ -1,40 +1,51 @@
 <?php
 include('settings.php');include('livedata.php');error_reporting(0); 
 $result = date_sun_info(time(), $lat, $lon);
+$sunr = date('H:i', $result['sunrise']);
+$suns = date('H:i', $result['sunset']);
 $suns2 =date('G.i', $result['sunset']);
 $sunrs2 =date('G.i', $result['sunrise']);
 $now =date('G.i');
  //weather34 wxcheck API aviation metar script May 2018 
 $json_string             = file_get_contents("jsondata/metar34.txt");
 $parsed_json             = json_decode($json_string);
-$metar34time       = $parsed_json->{'data'}[0]->{'observed'};
-$metar34raw       = $parsed_json->{'data'}[0]->{'raw_text'};
-$metar34stationid       = $parsed_json->{'data'}[0]->{'icao'};	
-$metar34stationname       = $parsed_json->{'data'}[0]->{'station'}->{'name'};
-$metar34pressurehg       = $parsed_json->{'data'}[0]->{'barometer'}->{'hg'};	
-$metar34pressuremb       = $parsed_json->{'data'}[0]->{'barometer'}->{'mb'};
-// $metar34conditions         = $parsed_json->{'data'}[0]->{'conditions'}[0]->{'code'};
-// $metar34conditionstext         = $parsed_json->{'data'}[0]->{'conditions'}[0]->{'text'};
-$metar34clouds          = $parsed_json->{'data'}[0]->{'clouds'}[0]->{'code'};
-$metar34cloudstext          = $parsed_json->{'data'}[0]->{'clouds'}[0]->{'text'};
-$metar34dewpointc          = $parsed_json->{'data'}[0]->{'dewpoint'}->{'celsius'};
-$metar34dewpointf          = $parsed_json->{'data'}[0]->{'dewpoint'}->{'fahrenheit'};
-$metar34temperaturec          = $parsed_json->{'data'}[0]->{'temperature'}->{'celsius'};
-$metar34temperaturef          = $parsed_json->{'data'}[0]->{'temperature'}->{'fahrenheit'};
-$metar34humidity          = $parsed_json->{'data'}[0]->{'humidity'}->{'percent'};
-$metar34visibility        = $parsed_json->{'data'}[0]->{'visibility'}->{'meters'};
-$metar34visibilitymiles        = $parsed_json->{'data'}[0]->{'visibility'}->{'miles'};
-$metar34windir          = $parsed_json->{'data'}[0]->{'wind'}->{'degrees'};
-$metar34windspeedmph          = $parsed_json->{'data'}[0]->{'wind'}->{'speed_mph'};
-$metar34windspeedkmh          = number_format($metar34windspeedmph*1.60934,0);//kmh
-$metar34windspeedkts          = $parsed_json->{'data'}[0]->{'wind'}->{'speed_kts'};
-$metar34raininches          = $parsed_json->{'data'}[0]->{'rain_in'};
-$metar34rainmm          = number_format($metar34raininches*25.4,2) ;
-$metar34visibility=str_replace(',', '', $metar34visibility);
-// $metar34vismiles        = number_format($metar34visibility*0.000621371,1) ;
-$metar34vismiles        = number_format($parsed_json->{'data'}[0]->{'visibility'}->{'miles_float'},1);
-// $metar34viskm        = number_format($metar34visibility*0.00099999969062399994,1) ;
-$metar34viskm        = number_format($parsed_json->{'data'}[0]->{'visibility'}->{'meters_float'}/1000,1) ;
+$metar34time       = $parsed_json->{'data'}[0]->{'observed'} ?? null;
+$metar34raw       = $parsed_json->{'data'}[0]->{'raw_text'} ?? null;
+$metar34stationid       = $parsed_json->{'data'}[0]->{'icao'} ?? null;	
+$metar34stationname       = $parsed_json->{'data'}[0]->{'name'} ?? null;	
+$metar34pressurehg       = $parsed_json->{'data'}[0]->{'barometer'}->{'hg'} ?? null;	
+$metar34pressuremb       = $parsed_json->{'data'}[0]->{'barometer'}->{'mb'} ?? null;
+$metar34conditions       = $parsed_json->{'data'}[0]->{'conditions'}[0]->{'code'} ?? null;
+$metar34conditionstext   = $parsed_json->{'data'}[0]->{'conditions'}[0]->{'text'} ?? null;
+$metar34clouds          = $parsed_json->{'data'}[0]->{'clouds'}[0]->{'code'} ?? null;
+$metar34cloudstext      = $parsed_json->{'data'}[0]->{'clouds'}[0]->{'text'} ?? null;
+
+if (empty($metar34clouds) && !empty($metar34raw)) {
+    if (strpos($metar34raw, 'CAVOK') !== false) {
+        $metar34clouds = 'CAVOK';
+    } else if (strpos($metar34raw, ' SKC') !== false) {
+        $metar34clouds = 'SKC';
+    } else if (strpos($metar34raw, ' CLR') !== false) {
+        $metar34clouds = 'CLR';
+    } else if (empty($metar34conditions)) {
+        $metar34clouds = 'SKC';
+    }
+}
+$metar34dewpointc       = $parsed_json->{'data'}[0]->{'dewpoint'}->{'celsius'} ?? null;
+$metar34dewpointf       = $parsed_json->{'data'}[0]->{'dewpoint'}->{'fahrenheit'} ?? null;
+$metar34temperaturec    = $parsed_json->{'data'}[0]->{'temperature'}->{'celsius'} ?? null;
+$metar34temperaturef    = $parsed_json->{'data'}[0]->{'temperature'}->{'fahrenheit'} ?? null;
+$metar34humidity        = $parsed_json->{'data'}[0]->{'humidity'}->{'percent'} ?? null;
+$metar34visibility      = $parsed_json->{'data'}[0]->{'visibility'}->{'meters'} ?? null;
+$metar34windir          = $parsed_json->{'data'}[0]->{'wind'}->{'degrees'} ?? null;
+$metar34windspeedmph    = $parsed_json->{'data'}[0]->{'wind'}->{'speed_mph'} ?? 0;
+$metar34windspeedkmh    = number_format(((float)$metar34windspeedmph)*1.60934,0);//kmh
+$metar34windspeedkts    = $parsed_json->{'data'}[0]->{'wind'}->{'speed_kts'} ?? 0;
+$metar34raininches      = $parsed_json->{'data'}[0]->{'rain_in'} ?? 0;
+$metar34rainmm          = number_format(((float)$metar34raininches)*25.4,2) ;
+$metar34visibility      = str_replace(',', '', (string)$metar34visibility);
+$metar34vismiles        = number_format(((float)$metar34visibility)*0.000621371,1) ;
+$metar34viskm        = number_format(((float)$metar34visibility)*0.00099999969062399994,1) ;
 // start the weather34 icon output and descriptions
 if($metar34conditions =='-SHRA'){
 if ($now >$suns2 ){$sky_icon='rain.svg';} 
@@ -353,3 +364,4 @@ else{
 //end weather34 metar aviation script API	 
 
 ?>
+

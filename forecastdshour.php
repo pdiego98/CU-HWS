@@ -23,14 +23,15 @@ header('Content-type: text/html; charset=utf-8');
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title><?php echo "${stationName}";?> <?php echo 'Hourly Forecast' ;
+		<title><?php echo "{}";?> <?php echo 'Hourly Forecast' ;
 		$result = date_sun_info(time(), $lat, $lon);
-$sunr=date_sunrise(time(), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);
-$suns=date_sunset(time(), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
-$sunr1=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, $rise_zenith, $UTC);
-$suns1=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, $set_zenith, $UTC);
-$tw=date_sunrise(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, 96, $UTC);
-$twe=date_sunset(strtotime('+1 day', time()), SUNFUNCS_RET_STRING, $lat, $lon, 96, $UTC);
+        $sun_info_tomorrow = date_sun_info(strtotime('+1 day', time()), $lat, $lon);
+$sunr=date('H:i', $result['sunrise']);
+$suns=date('H:i', $result['sunset']);
+$sunr1=date('H:i', $sun_info_tomorrow['sunrise']);
+$suns1=date('H:i', $sun_info_tomorrow['sunset']);
+$tw=date('H:i', $sun_info_tomorrow['civil_twilight_begin']);
+$twe=date('H:i', $sun_info_tomorrow['civil_twilight_end']);
 $suns2 =date('G.i', $result['sunset']);
 $sunr2 =date('G.i', $result['sunrise']);
 $suns3 =date('G.i', $result['sunset']);
@@ -58,7 +59,7 @@ border:0;color:#aaa;overflow:hidden!important;margin-bottom:5px;border:solid 1px
 .weather34darkbrowser[url]:after{content:attr(url);color:#aaa;font-size:14px;position:absolute;left:0;right:0;top:0;padding:5px 15px;margin:11px 50px 0 90px;border-radius:3px;background:rgba(97, 106, 114, 0.3);height:20px;box-sizing:border-box} </style>
 </head>
 <body>
-<div class="weather34darkbrowser" url="<?php echo "${stationName} \n";?> Hourly Forecast "></div>
+<div class="weather34darkbrowser" url="<?php echo "{} \n";?> Hourly Forecast "></div>
 		<div style="position:absolute;width:725px;background:none;margin:0 auto;margin-left:7%;margin-top:5px;">
 			
 		<script src="js/jquery.js"></script>
@@ -128,3 +129,4 @@ border:0;color:#aaa;overflow:hidden!important;margin-bottom:5px;border:solid 1px
   </div>
   </body>
   </html>
+

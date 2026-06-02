@@ -43,7 +43,7 @@ curl_setopt($ch5, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch5, CURLOPT_HTTPHEADER,$w34header);
 curl_setopt($ch5, CURLOPT_FILE, $fp5);
 $result = curl_exec ($ch5);
-curl_close ($ch5);
+// curl_close ($ch5);
 ?>
 
 <?php //weather34 wunderground curl based
@@ -55,7 +55,7 @@ $fp = fopen($complete_save_loc, 'wb');
 curl_setopt($ch, CURLOPT_FILE, $fp);
 curl_setopt($ch, CURLOPT_HEADER, 0);
 curl_exec($ch);
-curl_close($ch);
+// curl_close($ch);
 fclose($fp);
 ?>
 <?php // weather34 earthquakes curl based
@@ -67,7 +67,7 @@ $fp1 = fopen($complete_save_loc1, 'wb');
 curl_setopt($ch1, CURLOPT_FILE, $fp1);
 curl_setopt($ch1, CURLOPT_HEADER, 0);
 curl_exec($ch1);
-curl_close($ch1);
+// curl_close($ch1);
 fclose($fp1);
 ?>
 <?php //k-index curl based
@@ -79,7 +79,7 @@ $fp2 = fopen($complete_save_loc2, 'wb');
 curl_setopt($ch2, CURLOPT_FILE, $fp2);
 curl_setopt($ch2, CURLOPT_HEADER, 0);
 curl_exec($ch2);
-curl_close($ch2);
+// curl_close($ch2);
 fclose($fp2);
 ?>
 <?php // weather34 aqicn air quality  curl based
@@ -92,7 +92,7 @@ $fp3 = fopen($complete_save_loc3, 'wb');
 curl_setopt($ch3, CURLOPT_FILE, $fp3);
 curl_setopt($ch3, CURLOPT_HEADER, 0);
 curl_exec($ch3);
-curl_close($ch3);
+// curl_close($ch3);
 fclose($fp3);}
 ?>
 <?php // weather34 purple air quality  curl based
@@ -105,6 +105,6 @@ $fp4 = fopen($complete_save_loc4, 'wb');
 curl_setopt($ch4, CURLOPT_FILE, $fp4);
 curl_setopt($ch4, CURLOPT_HEADER, 0);
 curl_exec($ch4);
-curl_close($ch4);
+// curl_close($ch4);
 fclose($fp4);}
 ?>
